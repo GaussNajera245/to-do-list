@@ -12,7 +12,7 @@ const theme = createMuiTheme({
 
 function Header(props){
     return (
-        <div className="header">
+        <div className="header" style={{minWidth:'400px'}} >
             <ThemeProvider theme={theme}>
             <Typography>{props.title}</Typography>
             </ThemeProvider>
