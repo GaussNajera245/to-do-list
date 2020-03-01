@@ -1,17 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-// import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import {Grid,Divider,List, Hidden,Checkbox,ListItem,ListItemIcon} from '@material-ui/core';
+import todos from './Todos'
+import ListTile from './ListTile';
 
 
+// import Hidden from '@material-ui/core/Hidden';
+import Card from './Card'
 
 const useStyles = makeStyles({
+    root: {
+        minWidth: "400px",
+        flexGrow: 1,
+    },
+    fakePad:{
+        width: "5px"
+    },
     paper: {
         padding: '5px',
         textAlign: 'center',
@@ -25,26 +29,64 @@ const useStyles = makeStyles({
 });
 
 
-
-function Box(props){
+function Box() {
 
     const classes = useStyles();
-    return(
-        <Grid item={true} sm={props.size} xs={10}>
-            <Paper className={classes.paper}  >
-                <List>
-                    <ListItem>
-                        {props.listName} 
-                        <IconButton aria-label="add" className={classes.margin}  onClick={ props.handleClick } >
-                            <AddCircleOutlineIcon style={{fill: "#61dafb"}}/>
-                        </IconButton>       
-                    </ListItem>
-                    <Divider light />
-                </List>
-                {props.children}
-            </Paper>
-        </Grid>
+    let J= [<ListTile title="hddi1" key="g" />, <ListTile title="hddi1" key="m" />];
+    
+
+    let K = Math.floor(Math.random() * 1000); ;
+    let [tiles, addTiles] = React.useState(todos.map( i => <ListTile title={i.title} key="K" />));
+   
+
+    function addingListTiles(){
+        const newValue = <ListTile title="hddi1" key={K} />
+        addTiles( prevArray => [...prevArray, newValue]);
+    };
+     
+       
+
+    function addingChores(){
+        console.log("Chores")
+    };
+
+    
+    
+    return (
+        <div>
+        
+            <Grid className={classes.root}>
+                <Grid  justify="center" container  spacing={3}>
+                    <Card  listName="List:" size="4" handleClick={addingListTiles} >
+                        <Divider light />
+                        <List>
+                            { tiles }
+                        </List>
+                    </Card>
+                        
+                    <Hidden xsDown>
+                        <Card size="6" listName="To do:" handleClick={addingChores}>
+
+                        <ListItem >
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                />
+                            </ListItemIcon>
+                           
+                        </ListItem>
+                        </Card>
+                    </Hidden>
+                </Grid>
+            </Grid>
+        </div>
     );
 }
 
-export default Box; 
+
+
+
+export default Box;  
+
+
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Grid,Divider,List,ListItem, Hidden} from '@material-ui/core';
+import {Divider, ListItem} from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -11,15 +11,15 @@ const useStyles = makeStyles({
     },
 });
 
-function ListTileg(props){
+function ListTile(props){
 
     const classes = useStyles();
 
     return(
-        <div className="listTileg">
+        <div className="listTile">
             <ListItem button>
                 {props.title}
-            <IconButton aria-label="deploy" className={classes.margin}  >
+            <IconButton aria-label="deploy" className={classes.margin} >
                 <ChevronRightIcon style={{fill: "#61dafb"}}/>
             </IconButton> 
             </ListItem>
@@ -28,4 +28,4 @@ function ListTileg(props){
     );
 }
 
-export default ListTileg;
+export default ListTile;

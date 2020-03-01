@@ -1,14 +1,14 @@
 import React from 'react';
-import Mcard from './components/Card';
+import Box from './components/Box';
 import './App.css';
 import Header from './components/Header'
 
 function App() {
   return (
     <div className="App">
-          <Header title='Tasks to do:' />
+      <Header title='Tasks to do:' />
         <br></br>
-      <Mcard />
+      <Box />
     </div>
   );
 }
