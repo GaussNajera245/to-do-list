@@ -3,84 +3,77 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Grid,Divider,List, Hidden,Checkbox,ListItem,ListItemIcon} from '@material-ui/core';
 import todos from './Todos'
 import ListTile from './ListTile';
-
-
-// import Hidden from '@material-ui/core/Hidden';
 import Card from './Card'
 
-const useStyles = makeStyles({
-    root: {
-        minWidth: "400px",
-        flexGrow: 1,
-    },
-    fakePad:{
-        width: "5px"
-    },
-    paper: {
-        padding: '5px',
-        textAlign: 'center',
-        color: "#FF8FFF",
-        maxHeight: "67vh", 
-        overflow: 'auto'
-    },
-    margin: {
-        margin: 1,
-    },
-});
+class Box extends React.Component {
 
-
-function Box() {
-
-    const classes = useStyles();
-    let J= [<ListTile title="hddi1" key="g" />, <ListTile title="hddi1" key="m" />];
+    constructor(props){
+        super(props);
+        let tiles = todos.map( 
+                i => <ListTile title={i.title} key={i.title} id={i.title}  getName={this.getItemsFromList} />
+        );
+        this.addingListTiles = this.addingListTiles.bind(this);    
+        this.addingChores = this.addingChores.bind(this);    
+        this.state = {
+            tiles: tiles,
+            items: []
+        };
+    }
     
+    addingListTiles(){
+        const newValue = <ListTile title="hddi1" key="{K}" />
+        this.setState({ 
+            tiles: [...this.state.tiles, newValue]
+        });
+    }
 
-    let K = Math.floor(Math.random() * 1000); ;
-    let [tiles, addTiles] = React.useState(todos.map( i => <ListTile title={i.title} key="K" />));
-   
+    getItemsFromList = (itemName) => {
+        let query = todos.find( e => e.title === itemName);
+        this.setState({ 
+            items: query.items
+        });
 
-    function addingListTiles(){
-        const newValue = <ListTile title="hddi1" key={K} />
-        addTiles( prevArray => [...prevArray, newValue]);
+        console.log(query)
     };
-     
-       
 
-    function addingChores(){
-        console.log("Chores")
+    addingChores(){
+        console.log("Chores");
     };
 
     
-    
-    return (
-        <div>
-        
-            <Grid className={classes.root}>
-                <Grid  justify="center" container  spacing={3}>
-                    <Card  listName="List:" size="4" handleClick={addingListTiles} >
-                        <Divider light />
-                        <List>
-                            { tiles }
-                        </List>
-                    </Card>
-                        
-                    <Hidden xsDown>
-                        <Card size="6" listName="To do:" handleClick={addingChores}>
 
-                        <ListItem >
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                />
-                            </ListItemIcon>
-                           
-                        </ListItem>
+    render(){
+        let chores = (
+            (this.state.items !== 0) && 
+                this.state.items.map(
+                    element => <ListTile title={element} isCheckboxTile='true' /> 
+                )
+        );
+
+        return (
+            <div>
+                <Grid style={{minWidth: "400px"}}>
+                    <Grid  justify="center" container  spacing={3}>
+                        <Card  name="List:" size="4" handleClick={this.addingListTiles} >
+                            <Divider light />
+                            <List>
+                                { this.state.tiles }
+                            </List>
                         </Card>
-                    </Hidden>
+                            
+                        <Hidden xsDown>
+                            <Card size="6" name="To do:" handleClick={this.addingChores}>
+                            <Divider light />
+                            <List>
+                                {chores}  
+                            </List>
+                            </Card>
+                        </Hidden>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
-    );
+            </div>
+        );
+    }
 }
 
 

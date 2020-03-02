@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Divider, ListItem} from '@material-ui/core';
+import {Divider, Checkbox,ListItem,ListItemIcon} from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -11,21 +11,36 @@ const useStyles = makeStyles({
     },
 });
 
-function ListTile(props){
 
+function ListTile(props){
+    
     const classes = useStyles();
 
-    return(
+    const normalTile =(
         <div className="listTile">
-            <ListItem button>
-                {props.title}
-            <IconButton aria-label="deploy" className={classes.margin} >
-                <ChevronRightIcon style={{fill: "#61dafb"}}/>
-            </IconButton> 
-            </ListItem>
-            <Divider light />
+                <ListItem button>
+                    {props.title}
+                <IconButton aria-label="deploy" className={classes.margin} onClick={()=> props.getName(props.title)}>
+                    <ChevronRightIcon style={{fill: "#61dafb"}}/>
+                </IconButton> 
+                </ListItem>
+                <Divider light />
         </div>
     );
+    
+    const checkboxTile =(
+        <div className="optionTile" >
+            <ListItem >
+                <ListItemIcon>
+                    <Checkbox edge="start" />
+                </ListItemIcon>
+                    {props.title}
+            </ListItem>
+        </div>
+    );
+
+    return props.isCheckboxTile ? (checkboxTile) : (normalTile);
+
 }
 
 export default ListTile;

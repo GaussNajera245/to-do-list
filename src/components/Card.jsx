@@ -1,16 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import {Paper, Grid, Divider, List, ListItem, IconButton} from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-
-
-const useStyles = makeStyles({
+const useStyles = () => ({
     paper: {
         padding: '5px',
         textAlign: 'center',
         color: "#FF8FFF",
-        maxHeight: "67vh", 
+        maxHeight: "69vh", 
         overflow: 'auto'
     },
     margin: {
@@ -18,27 +16,26 @@ const useStyles = makeStyles({
     },
 });
 
-
-
-function Card(props){
-
-    const classes = useStyles();
-    return(
-        <Grid item={true} sm={props.size} xs={10}>
+class Card extends React.Component{
+    render(){
+        const { classes } = this.props;
+        return(
+            <Grid item={true} sm={this.props.size} xs={10}>
             <Paper className={classes.paper}  >
                 <List>
                     <ListItem>
-                        {props.listName} 
-                        <IconButton aria-label="add" className={classes.margin}  onClick={ props.handleClick } >
+                        {this.props.name} 
+                        <IconButton aria-label="add" className={classes.margin}  onClick={ this.props.handleClick } >
                             <AddCircleOutlineIcon style={{fill: "#61dafb"}}/>
                         </IconButton>       
                     </ListItem>
                     <Divider light />
                 </List>
-                {props.children}
+                {this.props.children}
             </Paper>
         </Grid>
     );
+    }
 }
 
-export default Card; 
+export default withStyles(useStyles)(Card);
