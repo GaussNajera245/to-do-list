@@ -16,6 +16,14 @@ function ListTile(props){
     
     const classes = useStyles();
 
+    let checked= false;
+    function underline(){
+        checked = !checked
+        console.log(checked);
+        
+
+    };
+
     const normalTile =(
         <div className="listTile">
                 <ListItem button>
@@ -32,7 +40,7 @@ function ListTile(props){
         <div className="optionTile" >
             <ListItem >
                 <ListItemIcon>
-                    <Checkbox edge="start" />
+                    <Checkbox edge="start" onChange={underline} />
                 </ListItemIcon>
                     {props.title}
             </ListItem>

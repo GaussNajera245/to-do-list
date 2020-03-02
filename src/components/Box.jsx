@@ -16,7 +16,7 @@ class Box extends React.Component {
         this.addingChores = this.addingChores.bind(this);    
         this.state = {
             tiles: tiles,
-            items: []
+            items: [],
         };
     }
     
@@ -27,6 +27,14 @@ class Box extends React.Component {
         });
     }
 
+    
+    addingChores(){
+        const newVal = <ListTile title=" hddi1" key="{K}" />
+        this.setState({ 
+            items: [...this.state.items, newVal]
+        });
+    };
+    
     getItemsFromList = (itemName) => {
         let query = todos.find( e => e.title === itemName);
         this.setState({ 
@@ -35,18 +43,13 @@ class Box extends React.Component {
 
         console.log(query)
     };
-
-    addingChores(){
-        console.log("Chores");
-    };
-
     
 
     render(){
         let chores = (
             (this.state.items !== 0) && 
                 this.state.items.map(
-                    element => <ListTile title={element} isCheckboxTile='true' /> 
+                    element => <ListTile title={element} key={element} isCheckboxTile='true' /> 
                 )
         );
 
@@ -75,9 +78,6 @@ class Box extends React.Component {
         );
     }
 }
-
-
-
 
 export default Box;  
 
