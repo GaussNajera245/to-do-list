@@ -1,77 +1,124 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Grid,Divider,List, Hidden,Checkbox,ListItem,ListItemIcon} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Grid, Paper, List, Hidden, } from '@material-ui/core';
 import todos from './Todos'
 import ListTile from './ListTile';
-import Card from './Card'
+import CardHeader from './CardHeader'
 
+const useStyles = () => ({
+    paper: {
+        padding: '5px',
+        textAlign: 'center',
+        color: "#FF8FFF",
+        maxHeight: "69vh",
+        overflow: 'auto'
+    },
+    margin: {
+        margin: 1,
+    },
+
+});
 class Box extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        let tiles = todos.map( 
-                i => <ListTile title={i.title} key={i.title} id={i.title}  getName={this.getItemsFromList} />
+        let tiles = todos.map(
+            i => <ListTile title={i.title} key={i.title} id={i.title} getName={this.getItemsFromList} />
         );
-        this.addingListTiles = this.addingListTiles.bind(this);    
-        this.addingChores = this.addingChores.bind(this);    
+        this.addingListTiles = this.addingListTiles.bind(this);
+        this.addingChores = this.addingChores.bind(this);
+        this.updateToDoInput = this.updateToDoInput.bind(this);
+        this.updateListInput = this.updateListInput.bind(this);
         this.state = {
             tiles: tiles,
             items: [],
+            inputList: "",
+            inputDo: "",
         };
     }
-    
-    addingListTiles(){
-        const newValue = <ListTile title="hddi1" key="{K}" />
-        this.setState({ 
-            tiles: [...this.state.tiles, newValue]
-        });
+
+    addingListTiles() {
+        const val= this.state.inputList;
+        const newValue = <ListTile title={val} key={val} />
+        const condition = val !== "" ;
+        
+        if( condition ) {  
+            this.setState({
+                tiles: [...this.state.tiles, newValue],
+                inputList: "",
+            });
+        };
     }
 
-    
-    addingChores(){
-        const newVal = <ListTile title=" hddi1" key="{K}" />
-        this.setState({ 
-            items: [...this.state.items, newVal]
-        });
-    };
-    
-    getItemsFromList = (itemName) => {
-        let query = todos.find( e => e.title === itemName);
-        this.setState({ 
-            items: query.items
-        });
 
+    addingChores() {
+        const newVal = this.state.inputDo;
+        const condition = newVal !== "" ;
+        
+        if( condition ) {  
+            this.setState({
+                items: [...this.state.items, newVal],
+                inputDo: " ",
+            });
+        };
+    };
+
+    getItemsFromList = (itemName) => {
+        let query = todos.find(e => e.title === itemName);
+        this.setState({
+            items: query.items,
+        });
+        
         console.log(query)
     };
-    
 
-    render(){
+    updateToDoInput(e){
+        const val = e.target.value;
+            this.setState({
+                inputDo: val
+            })
+    }
+
+    updateListInput(e){
+        const val = e.target.value;
+            this.setState({
+                inputList: val
+            })
+    }
+
+
+    render() {
+        const { classes } = this.props;
         let chores = (
-            (this.state.items !== 0) && 
-                this.state.items.map(
-                    element => <ListTile title={element} key={element} isCheckboxTile='true' /> 
-                )
+            (this.state.items !== 0) &&
+            this.state.items.map(
+                element => <ListTile title={element} key={element} isCheckboxTile='true' />
+            )
         );
 
         return (
             <div>
-                <Grid style={{minWidth: "400px"}}>
-                    <Grid  justify="center" container  spacing={3}>
-                        <Card  name="List:" size="4" handleClick={this.addingListTiles} >
-                            <Divider light />
-                            <List>
-                                { this.state.tiles }
-                            </List>
-                        </Card>
-                            
-                        <Hidden xsDown>
-                            <Card size="6" name="To do:" handleClick={this.addingChores}>
-                            <Divider light />
-                            <List>
-                                {chores}  
-                            </List>
-                            </Card>
-                        </Hidden>
+                <Grid style={{ minWidth: "400px" }}>
+                    <Grid justify="center" container spacing={3}>
+                        <Grid item={true} sm={4} xs={10}>
+                            <Paper className={classes.paper}  >
+                                <List>
+                                    <CardHeader  title="List:" inputVal={this.state.inputList} click={this.addingListTiles} change={this.updateListInput}/>
+                                    {this.state.tiles}
+                                </List>
+                            </Paper>
+                        </Grid>
+
+                    <Hidden xsDown>
+                        <Grid item={true} sm={6} xs={10}>
+                            <Paper className={classes.paper} >
+                                <List>
+                                    <CardHeader  title="To do:" inputVal={this.state.inputDo} click={this.addingChores} change={this.updateToDoInput}/>
+                                    {chores}
+                                </List>
+                            </Paper>
+                        </Grid>
+                    </Hidden>
                     </Grid>
                 </Grid>
             </div>
@@ -79,7 +126,7 @@ class Box extends React.Component {
     }
 }
 
-export default Box;  
+export default withStyles(useStyles)(Box);
 
 
 
