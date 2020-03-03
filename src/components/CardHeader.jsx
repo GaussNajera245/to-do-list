@@ -31,7 +31,8 @@ function CardHeader(props){
                     <AddCircleOutlineIcon style={{ fill: "#61dafb" }} />
                 </IconButton>
             </ListItem>
-            <Divider light /> <Divider light />
+            <Divider light /> 
+            <Divider light />
         </div>
     );
 }

@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid, Paper, List, Hidden, } from '@material-ui/core';
 import todos from './Todos'
 import ListTile from './ListTile';
-import CardHeader from './CardHeader'
+import CardHeader from './CardHeader';
+import MinBox from './Minbox'
 
 const useStyles = () => ({
     paper: {
@@ -18,6 +19,7 @@ const useStyles = () => ({
     },
 
 });
+
 class Box extends React.Component {
 
     constructor(props) {
@@ -34,20 +36,23 @@ class Box extends React.Component {
             items: [],
             inputList: "",
             inputDo: "",
+            head:""
         };
     }
+    
 
     addingListTiles() {
         const val= this.state.inputList;
-        const newValue = <ListTile title={val} key={val} />
+        const newValue = <ListTile title={val} key={this.K} getName={(i)=>{this.setState({head:i,items:[]})}}/>
         const condition = val !== "" ;
         
-        if( condition ) {  
+        {condition && 
             this.setState({
                 tiles: [...this.state.tiles, newValue],
                 inputList: "",
             });
-        };
+        }
+        
     }
 
 
@@ -55,21 +60,20 @@ class Box extends React.Component {
         const newVal = this.state.inputDo;
         const condition = newVal !== "" ;
         
-        if( condition ) {  
+        {condition &&   
             this.setState({
                 items: [...this.state.items, newVal],
-                inputDo: " ",
+                inputDo: "",
             });
-        };
+        }
     };
 
     getItemsFromList = (itemName) => {
         let query = todos.find(e => e.title === itemName);
         this.setState({
             items: query.items,
+            head: itemName,
         });
-        
-        console.log(query)
     };
 
     updateToDoInput(e){
@@ -86,41 +90,41 @@ class Box extends React.Component {
             })
     }
 
+    K= ()=> Math.random() ;
 
     render() {
         const { classes } = this.props;
         let chores = (
             (this.state.items !== 0) &&
             this.state.items.map(
-                element => <ListTile title={element} key={element} isCheckboxTile='true' />
+                element => <ListTile title={element} key={this.K} isCheckboxTile='true' />
             )
         );
 
         return (
             <div>
-                <Grid style={{ minWidth: "400px" }}>
-                    <Grid justify="center" container spacing={3}>
-                        <Grid item={true} sm={4} xs={10}>
-                            <Paper className={classes.paper}  >
-                                <List>
-                                    <CardHeader  title="List:" inputVal={this.state.inputList} click={this.addingListTiles} change={this.updateListInput}/>
-                                    {this.state.tiles}
-                                </List>
-                            </Paper>
-                        </Grid>
-
-                    <Hidden xsDown>
-                        <Grid item={true} sm={6} xs={10}>
-                            <Paper className={classes.paper} >
-                                <List>
-                                    <CardHeader  title="To do:" inputVal={this.state.inputDo} click={this.addingChores} change={this.updateToDoInput}/>
-                                    {chores}
-                                </List>
-                            </Paper>
-                        </Grid>
-                    </Hidden>
+                <MinBox>
+                    <Grid item={true} sm={4} xs={10}>
+                        <Paper className={classes.paper}  >
+                            <List>
+                                <CardHeader  title="List:" inputVal={this.state.inputList} click={this.addingListTiles} change={this.updateListInput}/>
+                                {this.state.tiles}
+                            </List>
+                        </Paper>
                     </Grid>
-                </Grid>
+
+                <Hidden xsDown>
+                    <Grid item={true} sm={6} xs={10}>
+                        <Paper className={classes.paper} >
+                            <List>
+                                <CardHeader  title="To do:" inputVal={this.state.inputDo} click={this.addingChores} change={this.updateToDoInput}/>
+                                {this.state.head}
+                                {chores}
+                            </List>
+                        </Paper>
+                    </Grid>
+                </Hidden>
+                </MinBox>
             </div>
         );
     }
