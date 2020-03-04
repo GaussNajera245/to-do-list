@@ -1,10 +1,12 @@
 ## Notes: 
 
-##  The lists cannot retain which item's checkbox was clicked on, that functionality would imply more complex state, or a conection to a database :vv
+## `All the code is con src folder or public,`
 
-##  The Card and BoxClass are no longer useful, but I let them be there for future references.
+`The lists cannot retain which item's checkbox was clicked on, that functionality would imply more complex state, or a conection to a database :vv`
 
-## Also the commit changes are quite fuzzy, and not that descriptive:vv
+`The Card and BoxClass are no longer useful, but I let them be there for future references.`
+
+`Also the commit changes are quite fuzzy, and not that descriptive:vv`
 
 
 
