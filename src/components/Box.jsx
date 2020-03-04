@@ -60,7 +60,7 @@ class Box extends React.Component {
         const newVal = this.state.inputDo;
         const condition = newVal !== "" ;
         
-        {condition &&   
+        if(condition) {   
             this.setState({
                 items: [...this.state.items, newVal],
                 inputDo: "",

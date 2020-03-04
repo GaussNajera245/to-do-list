@@ -1,3 +1,5 @@
+## Nota: The lists cannot retain which item's checkbox was clicked on, that functionality would imply more complex state, or a conection to a database :vv
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

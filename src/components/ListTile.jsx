@@ -16,13 +16,8 @@ function ListTile(props){
     
     const classes = useStyles();
 
-    let checked= false;
-    function underline(){
-        checked = !checked
-        console.log(checked);
-        
-
-    };
+    // let check= false;
+    const [check, setCheck] = React.useState(false);
 
     const normalTile =(
         <div className="listTile">
@@ -37,10 +32,10 @@ function ListTile(props){
     );
     
     const checkboxTile =(
-        <div className="optionTile" >
+        <div className="optionTile" style={check ? {textDecoration: "line-through"}: {textDecoration: "none"}} >
             <ListItem >
                 <ListItemIcon>
-                    <Checkbox edge="start" onChange={underline} />
+                    <Checkbox edge="start" onClick={()=>{ setCheck(!check)}} />
                 </ListItemIcon>
                     {props.title}
             </ListItem>
