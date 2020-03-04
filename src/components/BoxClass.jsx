@@ -20,7 +20,7 @@ const useStyles = () => ({
 
 });
 
-class Box extends React.Component {
+class BoxClass extends React.Component {
 
     constructor(props) {
         super(props);
@@ -130,7 +130,7 @@ class Box extends React.Component {
     }
 }
 
-export default withStyles(useStyles)(Box);
+export default withStyles(useStyles)(BoxClass);
 
 
 

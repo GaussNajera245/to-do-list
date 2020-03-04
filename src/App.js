@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from './components/Box';
+import BoxClass from './components/BoxClass';
 import './App.css';
 import Header from './components/Header'
 import BoxFunction from "./components/BoxFunction"

@@ -1,4 +1,14 @@
-## Nota: The lists cannot retain which item's checkbox was clicked on, that functionality would imply more complex state, or a conection to a database :vv
+## Notes: 
+
+##  The lists cannot retain which item's checkbox was clicked on, that functionality would imply more complex state, or a conection to a database :vv
+
+##  The Card and BoxClass are no longer useful, but I let them be there for future references.
+
+## Also the commit changes are quite fuzzy, and not that descriptive:vv
+
+
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
